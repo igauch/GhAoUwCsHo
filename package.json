@@ -1,0 +1,21 @@
+{
+  "name": "howso-ng",
+  "version": "1.0.0",
+  "description": "南京华苏内部培训",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "angular": "~1.6.4",
+    "jquery": "~3.2.1",
+    "bootstrap": "~4.0.0-alpha.6",
+    "angular-ui-router": "~1.0.3"
+  },
+  "keywords": [
+    "华苏",
+    "培训"
+  ],
+  "author": "gauch",
+  "license": "ISC"
+}
