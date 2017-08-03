@@ -1,30 +1,30 @@
-<style>
-    nav img.log{
-        width: 170px;
-        height: 30px;
-    }
-</style>
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded navbar-inverse bg-inverse">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a ui-sref="home">
-        <img class="log" src="https://code.angularjs.org/1.6.4/docs/img/angularjs-for-header-only.svg" alt="ANGULAR">
-    </a>
-    <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" ui-sref="jquery">NG和JQUERY</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" ui-sref="model">双向数据绑定及原理</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" ui-sref="home.directive">指令</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" ui-sref="uirouter">uiRouter</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<!--
+
+指令模板只能有一个根元素，而不能像这样
+<div></div>
+<div></div>
+
+-->
+<div>
+    <style>
+        nav img.log{
+            width: 170px;
+            height: 30px;
+        }
+    </style>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded navbar-inverse bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a ui-sref="home">
+            <img class="log" src="https://code.angularjs.org/1.6.4/docs/img/angularjs-for-header-only.svg" alt="ANGULAR">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" ng-repeat="(k,v) in config track by k" ui-sref-active="active">
+                    <a class="nav-link" ui-sref="{{k}}">{{v}}</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
