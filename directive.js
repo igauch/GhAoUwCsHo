@@ -20,9 +20,9 @@ app.controller('directive', ['$scope', '$timeout', function($scope, $timeout) {
             scope: {
                 'close': '&onClose'
             },
-            template: '<div class="alert">\n' +
-            '<a href class="close" ng-click="close({message: \'closing for now\'})">&times;</a>\n' +
-            '<div ng-transclude></div>\n' +
-            '</div>\n'
+            template: '<div class="alert">' +
+            '<a href class="close" ng-click="close()">&times;</a>' +
+            '<div ng-transclude></div>' +
+            '</div>'
         };
     });

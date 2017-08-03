@@ -1,4 +1,10 @@
 <!doctype html>
+<!--
+
+NG-APP：指定angular应用的根，自动引导应用，并且只能自动引导一个angular应用
+        手动的用angular.bootstrap
+
+-->
 <html lang="zh-CN" ng-app="app">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +19,7 @@
     <script src="directive.js"></script>
 </head>
 <body>
-<a ui-sref="directive">directive</a>
+<div ui-view="header"></div>
 <div ui-view></div>
 </body>
 </html>
