@@ -55,6 +55,17 @@ app.directive('headerNav', function () {
          * 创建内联控制器
          */
         controller:function ($scope) {
+            $scope.config={
+                jquery:'NG和JQUERY',
+                model:'双向数据绑定及原理',
+                directive:'指令',
+                uirouter:'uiRouter',
+                compile:'编译'
+            };
+            $scope.directiveClick=function (num) {
+                console.log(num);
+            };
+
             $scope.search='gauch';
             $scope.$watch('search',function (newVal) {
                 console.log(newVal,$scope.str);

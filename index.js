@@ -32,19 +32,11 @@ var app = angular.module('app', ['ui.router'])
              */
             $stateProvider.state('home', {
                 url: '/home',
-                template: '<h1 class="text-center">WELCOME ANGULAR!</h1>' +
+                template: '<input ng-model="angular" class="form-control">'+
+                '<h1 class="text-center">WELCOME {{angular}}!</h1>' +
                 '<h2>用来开发SPA的、吸收了MVC思想的JS框架，扩展了HTML，提供了一个非常快速的前端开发解决方案</h2>',
-                controller:function ($rootScope) {
-                    $rootScope.config={
-                        jquery:'NG和JQUERY',
-                        model:'双向数据绑定及原理',
-                        directive:'指令',
-                        uirouter:'uiRouter',
-                        compile:'编译'
-                    };
-                    $rootScope.directiveClick=function (num) {
-                        console.log(num);
-                    };
+                controller:function ($scope) {
+                    $scope.angular='ANGULAR';
                 }
             }).state('home.directive', {
                 url: '/directive',
@@ -52,8 +44,7 @@ var app = angular.module('app', ['ui.router'])
                 controller: 'directive'
             }).state('jquery', {
                 url: '/jquery',
-                templateUrl: 'jquery.html',
-                controller: 'jquery'
+                templateUrl: 'jquery.html'
             }).state('model', {
                 url: '/model',
                 templateUrl: 'model.html',
