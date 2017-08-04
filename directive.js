@@ -21,26 +21,61 @@ app.directive('headerNav', function () {
          */
         replace: true,
         /**
+         * 当你希望创建一个可以包含任意内容的指令时
+         */
+        transclude:true,
+        /**
+         * 当你需要其他指令支持时
+         * 值为字符串或数组，代表其他指令的名字
+         * 通过前缀配置，告知查找域或处理行为，如果不配置前缀，就在本身指令连中查找，如果找不到就抛出一个错误
+         * ?   在当前指令中查找，没有找到，会将 null 作为结果值传给 link 函数的第四个参数
+         * ^   在上游的指令链中查找
+         */
+        require:'^?ngModule',
+        /**
          * 控制作用域
          * Boolean or Object类型,默认为false, 设置为true 时，会从父作用域继承并创建一个新的作用域对象
          * 设置为一个对象，则能设置隔离作用域
          * 可以使用“@” “=” “&”,来设置模板中数据的作用域和绑定规则
-         * "@"  本地作用域属性：使用当前指令中的数据和DOM属性的值进行绑定
-         * “=”  双向绑定：本地作用域上的属性同父级作用域上的属性进行双向的数据绑定
-         * “&”  父级作用域绑定：通过 & 符号可以对父级作用域进行绑定
-         //例如
-         //scope: {
-            //    ngModel: '=', // 将ngModel同指定对象绑定
-            //    onSend: '&', // 将引用传递给这个方法
-            //    fromName: '@' // 储存与fromName相关联的字符串
-            //}
+         * "@"  本地作用域属性,单项绑定，使用DOM属性的值进行绑定，字符串，因为dom属性总是字符串
+         * “=”  双向绑定,本地作用域上的属性同父级作用域上的属性进行双向的数据绑定
+         * “&”  提供一种方式执行一个表达式在父 scope 的上下文中
+         * 如果没有指定 attr 名称，则属性名称为相同的本地名称
          */
         scope: {
-            'config': '='
+            'config': '=',
+            'str':'@config',
+            'clickFn':'&'
         },
         /**
          * HTML模板路径或直接通过template指定一段HTML片段
          */
-        templateUrl: 'header.html'
+        templateUrl: 'header.html',
+        /**
+         * 创建内联控制器
+         */
+        controller:function ($scope) {
+            $scope.search='gauch';
+            $scope.$watch('search',function (newVal) {
+                console.log(newVal,$scope.str);
+            });
+        },
+        /**
+         * 通常在这里做DOM操作
+         */
+        link:function (sp, ele, att) {
+            ele.css('border','1px solid blue')
+        },
+        /**
+         * 如果我们希望在angular进行编译之前进行dom操作，使用compile
+         * compile 和 link 选项是互斥的
+         * 如果同时设置了这两个选项，那么会把 compile所返回的函数当作链接函数，而 link 选项本身则会被忽略
+         */
+        compile:function (ele, att) {
+            return function postLink(sp,ele,att,mo) {
+                console.log(mo);
+                ele.css('border','1px solid red')
+            }
+        }
     };
 });

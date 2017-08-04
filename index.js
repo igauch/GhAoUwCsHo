@@ -41,7 +41,10 @@ var app = angular.module('app', ['ui.router'])
                         directive:'指令',
                         uirouter:'uiRouter',
                         compile:'编译'
-                    }
+                    };
+                    $rootScope.directiveClick=function (num) {
+                        console.log(num);
+                    };
                 }
             }).state('home.directive', {
                 url: '/directive',

@@ -17,7 +17,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a ui-sref="home">
-            <img class="log" src="https://code.angularjs.org/1.6.4/docs/img/angularjs-for-header-only.svg" alt="ANGULAR">
+            <img class="log" src="http://src.igauch.cn/angularjs-for-header-only.svg" alt="ANGULAR">
         </a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
@@ -25,6 +25,21 @@
                     <a class="nav-link" ui-sref="{{k}}">{{v}}</a>
                 </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" placeholder="配置" ng-model="search">
+                <!--
+
+                如果要从隔离出来的作用域传递表达式到父作用域，则需要将其格式为键值对
+
+                -->
+                <button class="btn btn-outline-success my-2 my-sm-0" ng-click="clickFn({num:6})">点击</button>
+            </form>
         </div>
+        <!--
+
+        与指令配合使用，用以插入HTML片段、指令相互嵌套等
+
+        -->
+        <ng-transclude class="text-white"></ng-transclude>
     </nav>
 </div>
