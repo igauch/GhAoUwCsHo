@@ -21,12 +21,25 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
+                <!--
+
+                ng-repeat用于遍历插入DOM
+
+                ui-serf-active当当前路由处于激活状态时设置指定的类
+
+                -->
                 <li class="nav-item" ng-repeat="(k,v) in config track by k" ui-sref-active="active">
                     <a class="nav-link" ui-sref="{{k}}">{{v}}</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" placeholder="配置" ng-model="search">
+                <!--
+
+                ng-model-option:debounce防抖动，updateOn更新触发事件
+                ng-change必须有ng-model
+
+                -->
+                <input class="form-control mr-sm-2" placeholder="城市" ng-model="search" ng-model-options="{debounce:1000,updateOn:'blur'}" ng-change="searchBaidu()">
                 <!--
 
                 如果要从隔离出来的作用域传递表达式到父作用域，则需要将其格式为键值对

@@ -21,7 +21,7 @@ var app = angular.module('app', ['ui.router'])
      * angular-ui-router
      * https://ui-router.github.io/ng1/docs/latest/index.html
      */
-        .config(function ($urlRouterProvider, $stateProvider) {
+        .config(function ($urlRouterProvider, $stateProvider, $sceDelegateProvider) {
             /**
              * when：     对于给定的规则进行路由重定向   可以是正则表达式
              * otherwise：对未匹配到的进行路由重定向
@@ -33,15 +33,19 @@ var app = angular.module('app', ['ui.router'])
             $stateProvider.state('home', {
                 url: '/home',
                 template: '<input ng-model="angular" class="form-control">'+
+                /**
+                 * angular表达式写在{{}}模板标记里
+                 * 表达式支持计算和三元运算符等
+                 */
                 '<h1 class="text-center">WELCOME {{angular}}!</h1>' +
-                '<h2>用来开发SPA的、吸收了MVC思想的JS框架，扩展了HTML，提供了一个非常快速的前端开发解决方案</h2>',
-                controller:function ($scope) {
+                '<h2>用来开发SPA的、吸收了MVC思想的JS框架，扩展了HTML，提供了一个非常快速的前端开发解决方案</h2>'+
+                '<a href="https://docs.angularjs.org/api" target="_blank">ANGULAR官方文档</a>',
+                controller:function ($scope,$rootScope) {
                     $scope.angular='ANGULAR';
+                    $rootScope.directiveClick = function (num) {
+                        console.log(num);
+                    };
                 }
-            }).state('home.directive', {
-                url: '/directive',
-                templateUrl: 'directive.html',
-                controller: 'directive'
             }).state('jquery', {
                 url: '/jquery',
                 templateUrl: 'jquery.html'
@@ -49,6 +53,10 @@ var app = angular.module('app', ['ui.router'])
                 url: '/model',
                 templateUrl: 'model.html',
                 controller: 'model'
-            })
+            }).state('input',{
+                url:'/input',
+                templateUrl:'input.html',
+                controller:'input'
+            });
         })
 ;

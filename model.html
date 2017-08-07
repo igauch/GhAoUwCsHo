@@ -1,0 +1,27 @@
+<h3>双向数据绑定</h3>
+<h3>$watch</h3>
+<h3>$digest</h3>
+<h3>$apply</h3>
+<h3>只负责对发生于AngularJS上下文环境中的变更才会做出自动地响应</h3>
+<h3>$$phase</h3>
+<h1>{{model}}</h1>
+<ul class="list-group">
+    <!--
+
+    使用ng-repeat务必加上track by，避免有‘重复的数据’导致数据意外被改变，也避免因‘重复’带来的报错
+    几个属性即其文档https://docs.angularjs.org/api/ng/directive/ngRepeat
+
+    -->
+    <li class="list-group-item" ng-repeat="li in list track by $index">
+        <!--
+
+        避免因作用域带来的数据绑定失效的最佳实践就是加 . 采用对象的形式绑定
+        ng-if直接移除元素，而ng-show/ng-hide只是设置不显示，条件判断的还有ng-switch
+
+        ng-model\ng-value\value使用有冲突
+
+        -->
+        <input ng-if="$index===2" ng-model="testName.name" ng-value="6666">
+        <input ng-hide="$index===2" ng-model="li.name">
+    </li>
+</ul>

@@ -23,15 +23,15 @@ app.directive('headerNav', function () {
         /**
          * 当你希望创建一个可以包含任意内容的指令时
          */
-        transclude:true,
+        transclude: true,
         /**
-         * 当你需要其他指令支持时
-         * 值为字符串或数组，代表其他指令的名字
-         * 通过前缀配置，告知查找域或处理行为，如果不配置前缀，就在本身指令连中查找，如果找不到就抛出一个错误
-         * ?   在当前指令中查找，没有找到，会将 null 作为结果值传给 link 函数的第四个参数
-         * ^   在上游的指令链中查找
+         * 当你需要其他指令的控制器支持时
+         * 值为字符串或数组，代表其他控制器的名字
+         * 通过前缀配置，告知查找域或处理行为，如果不配置前缀，就在本身控制器连中查找，如果找不到就抛出一个错误
+         * ?   在当前控制器中查找，没有找到，会将 null 作为结果值传给 link 函数的第四个参数
+         * ^   在上游的控制器链中查找
          */
-        require:'^?ngModule',
+        require: '^?ngModule',
         /**
          * 控制作用域
          * Boolean or Object类型,默认为false, 设置为true 时，会从父作用域继承并创建一个新的作用域对象
@@ -44,8 +44,8 @@ app.directive('headerNav', function () {
          */
         scope: {
             'config': '=',
-            'str':'@config',
-            'clickFn':'&'
+            'str': '@config',
+            'clickFn': '&'
         },
         /**
          * HTML模板路径或直接通过template指定一段HTML片段
@@ -54,39 +54,71 @@ app.directive('headerNav', function () {
         /**
          * 创建内联控制器
          */
-        controller:function ($scope) {
-            $scope.config={
-                jquery:'NG和JQUERY',
-                model:'双向数据绑定及原理',
-                directive:'指令',
-                uirouter:'uiRouter',
-                compile:'编译'
-            };
-            $scope.directiveClick=function (num) {
-                console.log(num);
+        controller: function ($scope,$http,$sce) {
+            $scope.config = {
+                jquery: 'NG和JQUERY',
+                model: '双向数据绑定',
+                input: '表单',
+                uirouter: 'uiRouter',
+                compile: '编译'
             };
 
-            $scope.search='gauch';
-            $scope.$watch('search',function (newVal) {
-                console.log(newVal,$scope.str);
-            });
+            $scope.search = 'nanjing';
+
+            $scope.searchBaidu=function () {
+                /**
+                 * https://code.angularjs.org/1.6.4/docs/api/ng/service/$http
+                 */
+                $http.get('resource/test.php').then(function (res) {
+                    console.log(res.data);
+                },function (res) {
+                    console.log(res);
+                }).catch(function (err) {
+
+                });
+            }
         },
         /**
          * 通常在这里做DOM操作
          */
-        link:function (sp, ele, att) {
-            ele.css('border','1px solid blue')
+        link: function (sp, ele, att) {
+            ele.css('border', '1px solid blue')
         },
         /**
          * 如果我们希望在angular进行编译之前进行dom操作，使用compile
          * compile 和 link 选项是互斥的
          * 如果同时设置了这两个选项，那么会把 compile所返回的函数当作链接函数，而 link 选项本身则会被忽略
          */
-        compile:function (ele, att) {
-            return function postLink(sp,ele,att,mo) {
-                console.log(mo);
-                ele.css('border','1px solid red')
+        compile: function (ele, att) {
+            return function postLink(sp, ele, att, mo) {
+                console.log(mo, sp.str);
+                ele.css('border', '1px solid red')
             }
         }
     };
 });
+
+
+app.controller('model', ['$scope', '$timeout', function (sp, timeout) {
+    setTimeout(function () {
+        sp.model = 'GAUCH';
+        /**
+         * apply(exp);
+         */
+        sp.$apply();
+    }, 1000);
+    timeout(function () {
+        sp.model = 'HOWSO';
+    });
+
+    sp.list = [{id: 1, name: 'gauch'}, {id: 1, name: 'gauch'}, {id: 3, name: 'gauch'}, {id: 4, name: 'howso'}];
+    sp.testName = {};
+    /**
+     * scope下的几个方法https://docs.angularjs.org/api/ng/type/$rootScope.Scope
+     *
+     */
+    wc&&wc();
+    var wc=sp.$watch('testName', function (newVal) {
+        console.log(newVal);
+    }, true)
+}]);
