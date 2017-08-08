@@ -54,7 +54,7 @@ app.directive('headerNav', function () {
         /**
          * 创建内联控制器
          */
-        controller: function ($scope,$http,$sce) {
+        controller: function ($scope,$http) {
             $scope.config = {
                 jquery: 'NG和JQUERY',
                 model: '双向数据绑定',
@@ -69,12 +69,12 @@ app.directive('headerNav', function () {
                 /**
                  * https://code.angularjs.org/1.6.4/docs/api/ng/service/$http
                  */
-                $http.get('resource/test.php').then(function (res) {
+                $http.get('weather/now.json',{
+                    params:{key:'sspyu6aqe0seo09o',location:$scope.search,language:'zh-Hans',unit:'c'}
+                }).then(function (res) {
                     console.log(res.data);
                 },function (res) {
                     console.log(res);
-                }).catch(function (err) {
-
                 });
             }
         },
@@ -121,4 +121,7 @@ app.controller('model', ['$scope', '$timeout', function (sp, timeout) {
     var wc=sp.$watch('testName', function (newVal) {
         console.log(newVal);
     }, true)
-}]);
+}])
+    .controller('input',['$scope',function (sp) {
+        
+    }]);
