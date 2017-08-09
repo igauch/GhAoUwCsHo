@@ -39,15 +39,29 @@ var app = angular.module('app', ['ui.router'])
                  */
                 '<h1 class="text-center">WELCOME {{angular}}!</h1>' +
                 '<h2>用来开发SPA的、吸收了MVC思想的JS框架，扩展了HTML，提供了一个非常快速的前端开发解决方案</h2>'+
+                '<a ui-sref="jquery({param1: 123})">传参转跳jQuery</a>'+
                 '<a href="https://docs.angularjs.org/api" target="_blank">ANGULAR官方文档</a>',
-                controller:function ($scope,$rootScope) {
+                controller:function ($scope,$rootScope,resolveFactory) {
+                    console.log(resolveFactory);
                     $scope.angular='ANGULAR';
                     $rootScope.directiveClick = function (num) {
                         console.log(num);
                     };
+                },
+                /**
+                 * 预加载
+                 * resolve属性里的值会在路由成功前被预先设定好，然后注入到控制器中
+                 */
+                resolve:{
+                    resolveFactory:function () {
+                        return '我是通过路由的resolve注册的服务';
+                    }
                 }
             }).state('jquery', {
-                url: '/jquery',
+                /**
+                 * 参数占位符
+                 */
+                url: '/jquery?param1',
                 templateUrl: 'jquery.html'
             }).state('model', {
                 url: '/model',
