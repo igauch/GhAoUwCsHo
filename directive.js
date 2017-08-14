@@ -125,3 +125,23 @@ app.controller('model', ['$scope', '$timeout', function (sp, timeout) {
     .controller('input',['$scope',function (sp) {
         
     }]);
+
+/**
+ * 第一个参数是名字，第二个参数是一个返回一个用于过滤的函数的函数
+ * 在视图上这样调用：{{128 | percent:0:'9.8'}}
+ */
+app.filter('percent', function () {
+    /**
+     * data:作为第一个参数为遍历数组传进来的值
+     * num作为后来的参数作为参数使用，可以增加多个
+     */
+    return function (data,num,assist) {
+        if (data === 0 || data) {
+            var v = parseFloat(data);
+            /**
+             * 返回一个值作为过滤的结果
+             */
+            return Number(Math.round(v * 10000) / 100).toFixed(num) + "%" + assist;
+        }
+    };
+});
