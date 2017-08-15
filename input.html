@@ -1,3 +1,8 @@
+<style>
+    .red{
+        color: red;
+    }
+</style>
 <div class="col-md-6">
     <form class="form-horizontal" name="testForm">
         <div class="form-group">
@@ -7,6 +12,10 @@
             <div class="col-md-8">
                 <input class="form-control" name="requiredandnumber" id="requiredandnumber" type="number" required ng-model='test.requiredandnumber' />
             </div>
+            <div ng-class="{true:'red'}[testForm.requiredandnumber.$invalid&&testForm.requiredandnumber.$dirty]">
+                <span>值：{{test.requiredandnumber}}</span>
+                <span>必须：{{testForm.requiredandnumber.$error.required}}</span>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
@@ -14,6 +23,11 @@
             </div>
             <div class="col-md-8">
                 <input id="lengthsub" name="lengthsub" ng-minlength="6" ng-maxlength="16" ng-model="test.lengthsub" class="form-control" />
+            </div>
+            <div ng-class="{true:'red'}[testForm.lengthsub.$invalid&&testForm.lengthsub.$dirty]">
+                <span>值：{{test.lengthsub}}</span>
+                <span>min长度：{{testForm.lengthsub.$error.minlength}}</span>
+                <span>max长度：{{testForm.lengthsub.$error.maxlength}}</span>
             </div>
         </div>
         <div class="form-group">
@@ -23,6 +37,12 @@
             <div class="col-md-8">
                 <input id="floatnumber" type="number" name="floatnumber" ng-model="test.floatnumber" min="0" max="100" step="0.01" class="form-control" />
             </div>
+            <div ng-class="{true:'red'}[testForm.floatnumber.$invalid&&testForm.floatnumber.$dirty]">
+                <span>值：{{test.floatnumber}}</span>
+                <span>min：{{testForm.floatnumber.$error.min}}</span>
+                <span>max：{{testForm.floatnumber.$error.max}}</span>
+                <span>step：{{testForm.floatnumber.$error.step}}</span>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
@@ -31,6 +51,9 @@
             <div class="col-md-8">
                 <input type="email" id="email" name="email" ng-model="test.email" class="form-control" />
             </div>
+            <div ng-class="{true:'red'}[testForm.email.$invalid&&testForm.email.$dirty]">
+                <span>值：{{test.email}}</span>
+            </div>
         </div>
         <div class="form-group">
             <div class="col-md-4">
@@ -38,6 +61,10 @@
             </div>
             <div class="col-md-8">
                 <input id="pattern" name="pattern" ng-model="test.pattern" ng-pattern="test.patternStr" class="form-control" />
+            </div>
+            <div ng-class="{true:'red'}[testForm.pattern.$invalid&&testForm.pattern.$dirty]">
+                <span>值：{{test.pattern}}</span>
+                <span>pattern：{{testForm.pattern.$error.pattern}}</span>
             </div>
         </div>
     </form>

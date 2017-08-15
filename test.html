@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example - example-select-production</title>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+
+
+</head>
+<body ng-app="selectExample">
+<script>
+    angular.module('selectExample', [])
+        .controller('ExampleController', ['$scope', function($scope) {
+            $scope.colors = [
+                {name:'black', shade:'dark'},
+                {name:'white', shade:'light', notAnOption: true},
+                {name:'red', shade:'dark'},
+                {name:'blue', shade:'dark', notAnOption: true},
+                {name:'yellow', shade:'light', notAnOption: false}
+            ];
+            $scope.myColor = $scope.colors[2]; // red
+        }]);
+</script>
+<div ng-controller="ExampleController">
+    <hr/>
+    <label>Color (null allowed):
+        <span  class="nullable">
+    <select ng-model="myColor" ng-options="colors[3] as color.name for color in colors track by $index">
+      <option value="">-- choose color --</option>
+    </select>
+  </span></label><br/>
+
+    <hr/>
+    Currently selected: {{ {selected_color:myColor} }}
+    <div style="border:solid 1px black; height:20px"
+         ng-style="{'background-color':myColor.name}">
+    </div>
+</div>
+</body>
+</html>
+
+<!--
+Copyright 2017 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
