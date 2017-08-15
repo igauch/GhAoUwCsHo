@@ -67,5 +67,21 @@
                 <span>pattern：{{testForm.pattern.$error.pattern}}</span>
             </div>
         </div>
+        <div class="form-group">
+            <label for="modal-re-psw" class="col-sm-4 control-label">密码</label>
+            <div class="col-sm-8">
+                <input type="password" name="psw" class="form-control" id="modal-re-psw" ng-model="test.password" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="modal-re-surePsw" class="col-sm-4 control-label">确认密码</label>
+            <div class="col-sm-8">
+                <input type="password" name="surePsw" class="form-control" id="modal-re-surePsw" ng-model="test.surePsw" equals="test.password">
+                <div ng-class="{true:'red'}[testForm.surePsw.$dirty && testForm.surePsw.$invalid]">
+                    <span>值：{{test.surePsw}}</span>
+                    <span>两次密码一致：{{testForm.surePsw.$error.equals}}</span>
+                </div>
+            </div>
+        </div>
     </form>
 </div>

@@ -96,7 +96,37 @@ app.directive('headerNav', function () {
             }
         }
     };
-});
+})
+    .directive('equals', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ngModelCtrl) {
+                function validateEqual(myValue) {
+                    /**
+                     * $eval：执行angular表达式并返回结果
+                     */
+                    var valid = (myValue === scope.$eval(attrs.equals));
+                    /**
+                     * 更改有效性状态，并通知表单
+                     */
+                    ngModelCtrl.$setValidity('equals', valid);
+                    /**
+                     * 返回期望的有效的值
+                     */
+                    return valid ? myValue : undefined;
+                }
+                /**
+                 * 当通过NG方式更改时作为等待执行的函数数组
+                 */
+                ngModelCtrl.$parsers.push(validateEqual);
+                /**
+                 * 当通过NG方式更改时作为等待执行的函数数组
+                 * 最后一个返回值用作实际的DOM值
+                 */
+                ngModelCtrl.$formatters.push(validateEqual);
+            }
+        }
+    });
 
 
 app.controller('model', ['$scope', '$timeout', function (sp, timeout) {
